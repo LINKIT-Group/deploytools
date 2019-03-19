@@ -1,0 +1,12 @@
+# do not change this file manually
+# automatically written by "make backend"
+# see Makefile for further specification
+
+terraform {
+  backend "s3" {
+    bucket = "{{ BUCKET_NAME }}"
+    dynamodb_table = "{{ TABLE_LOCK }}"
+    key = "{{ REPO_NAME }}/{{ BRANCH_NAME }}"
+    region = "{{ REGION_NAME }}"
+  }
+}
