@@ -8,7 +8,7 @@
 
 
 ## WYSIWYG
-![Deploy with State|986x504,50%](https://github.com/LINKIT-Group/deployscript/raw/master/deploy-with-state-v2.png)
+![Deploy with State](https://github.com/LINKIT-Group/deployscript/raw/master/deploy-with-state-v2.png)
 
 
 ## Prepare
