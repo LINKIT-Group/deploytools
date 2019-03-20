@@ -1,5 +1,12 @@
 
-## Prepare:
+## Prepare
+### Prerequisites
+1. Linux-, Mac- or Unix-based system
+2. Docker deamon. Install instructions: [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce) / [Mac](https://docs.docker.com/docker-for-mac/install/)
+3. Docker compose script, install instructions [here](https://docs.docker.com/compose/install/)
+4. functionally complete shell, able to runh "git" and "make"
+5. AWS account
+
 ### clone this project
 ```
 git clone https://github.com/LINKIT-Group/deployscript.git
