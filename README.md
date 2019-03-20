@@ -26,7 +26,7 @@ aws_secret_access_key = ${YOUR_SECRET_ACCESS_KEY}
 ```
 
 ## Usage
-Note: at first run a Docker image will be build. This can take a few minutes. All runs after that are
+Note: at first run a Docker image will be build, this can take a few minutes. Subsequent runs are much faster.
 ### Pull-merge a GIT repository into ./build/buildrepo
 ```
 make git url=${GIT_REPO}
@@ -43,7 +43,7 @@ make remotestate
 ### Cleanup
 ```
 # WARNING: this function will be changed soon, with additions to prevent un-commited work getting lost.
-# clear ./build directory (not and removes container image)
+# clear ./build directory (wip: removal of container image)
 make clean
 ```
 
