@@ -8,6 +8,7 @@
 
 
 ## WYSIWYG
+![Deploy with State](https://github.com/LINKIT-Group/deployscript/raw/master/deploy-with-state-v2.png)
 
 
 ## Prepare
