@@ -1,12 +1,12 @@
 
 ## Prepare:
-1. clone this project
+### clone this project
 ```
 git clone https://github.com/LINKIT-Group/deployscript.git
 ```
 
-2. setup credentials for AWS
-You require an AWS account and setup an Access Key for your user and put this in your home-directory. Note, currently only AWS is supported for the remotestate backend.
+### setup credentials for AWS
+An AWS account is required to setup an Access Key for your user and put this in your home-directory. Note, currently only AWS is supported for the remotestate backend.
 cat ~/.aws/credentials 
 ```
 [default]
