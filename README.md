@@ -3,9 +3,18 @@
 ### Prerequisites
 1. Linux-, Mac- or Unix-based system
 2. Docker deamon. Install instructions: [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce) / [Mac](https://docs.docker.com/docker-for-mac/install/)
-3. Docker compose script, install instructions [here](https://docs.docker.com/compose/install/)
-4. functionally complete shell, able to runh "git" and "make"
-5. AWS account
+3. Docker compose script, [instructions here](https://docs.docker.com/compose/install/)
+4. functionally complete shell. Ability to create new Docker containers (2, 3), run "git" and "make". All else happens in container-space
+5. an AWS account to create a DynamoDB-S3 pair (remote state backend)
+
+### Related
+1. The Docker & Makefile configuration is based upon [this article](https://itnext.io/docker-makefile-x-ops-sharing-infra-as-code-parts-ea6fa0d22946).
+
+2. Python3 module to merge multiple GIT repos into a buildrepo: https://github.com/LINKIT-Group/makegit
+3. Python3 module to create remote state backend: https://github.com/LINKIT-Group/remotestate
+
+### WYSIWYG
+
 
 ### clone this project
 ```
