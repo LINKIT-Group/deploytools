@@ -25,17 +25,26 @@ aws_access_key_id = ${YOUR_ACCESS_KEY_ID}
 aws_secret_access_key = ${YOUR_SECRET_ACCESS_KEY}
 ```
 
-## Pull-merge a GIT repository into ./build/buildrepo
+## Usage
+Note: at first run a Docker image will be build. This can take a few minutes. All runs after that are
+### Pull-merge a GIT repository into ./build/buildrepo
 ```
 make git url=${GIT_REPO}
 ```
 
-## Create remotestate (on AWS) and Terraform backend file
+### Create remotestate (on AWS) and Terraform backend file
 Create a remote state backend on AWS (two DynamoDB tables, and an S3 bucket) for the pulled ${GIT_REPO} from previous section. One set of DynamoDB/S3 is created per GIT_HOST/GROUP combination (example "https://github.com/LINKIT-Group"), multiple repositories in a group share a DynamoDB/S3 set.
 
 ```
 # create a remote state backend for git-repo in ./build/buildrepo
 make remotestate
+```
+
+### Cleanup
+```
+# WARNING: this function will be changed soon, with additions to prevent un-commited work getting lost.
+# clear ./build directory (not and removes container image)
+make clean
 ```
 
 ## Related
