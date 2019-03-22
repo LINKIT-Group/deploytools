@@ -67,6 +67,14 @@ function __terraform(){
         cd "$current_path" >/dev/null
         return 1
     fi
+    
+    backend_file="${PROJECT_PATH}/buildrepo/terraform/backend_auto.tf"
+    if [ ! -s "$backend_file" ];then
+        # backend not yet set, executing remote state first
+        echo "updating backend configuration"
+        __remotestate || return 1
+        [ -s "$backend_file" ] || return 1
+    fi
 
     # execute terraform 
     cd "$terraform_path" && \
