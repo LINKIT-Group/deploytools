@@ -70,7 +70,7 @@ function __terraform(){
         return $?
     fi
     
-    backend_file="${PROJECT_PATH}/buildrepo/terraform/backend_auto.tf"
+    backend_file="${terraform_path}/backend_auto.tf"
     if [ ! -s "$backend_file" ];then
         # backend not yet set, executing remote state first
         echo "updating backend configuration"
