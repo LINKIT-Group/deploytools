@@ -48,7 +48,7 @@ export HOST_UID
 
 
 # all our targets are phony (no files to check).
-.PHONY: shell help test git remote terraform_init terraform_apply terraform_plan terraform_destroy terraform clean
+.PHONY: shell help test build rebuild git remote terraform_init terraform_apply terraform_plan terraform_destroy terraform clean
 
 # suppress makes own output
 #.SILENT:
