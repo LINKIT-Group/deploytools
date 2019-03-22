@@ -56,16 +56,18 @@ function __terraform(){
     current_path="$PWD"
     __check_env_project || return 1
 
-    if [ -z "$1" ];then
-        terraform --help
-        return 1
-    fi
 
     terraform_path="${PROJECT_PATH}/build/buildrepo/terraform"
     if [ ! -d "$terraform_path" ];then
         echo "/terraform path (./build/buildrepo/terraform) missing"
         cd "$current_path" >/dev/null
         return 1
+    fi
+    
+    if [ -z "$1" ];then
+        # switch to terraform directory and exit
+        cd "$terraform_path"
+        return $?
     fi
     
     backend_file="${PROJECT_PATH}/buildrepo/terraform/backend_auto.tf"
