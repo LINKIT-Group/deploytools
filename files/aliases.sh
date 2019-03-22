@@ -56,26 +56,35 @@ function __terraform(){
     current_path="$PWD"
     __check_env_project || return 1
 
-
     terraform_path="${PROJECT_PATH}/build/buildrepo/terraform"
     if [ ! -d "$terraform_path" ];then
         echo "/terraform path (./build/buildrepo/terraform) missing"
         cd "$current_path" >/dev/null
         return 1
     fi
-    
+ 
     if [ -z "$1" ];then
         # switch to terraform directory and exit
         cd "$terraform_path"
         return $?
     fi
-    
+
     backend_file="${terraform_path}/backend_auto.tf"
     if [ ! -s "$backend_file" ];then
         # backend not yet set, executing remote state first
         echo "updating backend configuration"
         __remotestate || return 1
         [ -s "$backend_file" ] || return 1
+    fi
+
+    if [ "$1" == "output" ];then
+        # write to file
+        output_file="${terraform_path}/outputs.json"
+        cd "$terraform_path" && \
+            terraform output -json >"$output_file" && \
+            cat "$output_file"
+        return_code="$?"
+        return $return_code
     fi
 
     # execute terraform 

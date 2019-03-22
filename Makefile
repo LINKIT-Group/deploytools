@@ -48,7 +48,7 @@ export HOST_UID
 
 
 # all our targets are phony (no files to check).
-.PHONY: shell help test build rebuild git remote deploy destroy clean
+.PHONY: shell help test build rebuild git remote plan deploy destroy clean
 
 # suppress makes own output
 #.SILENT:
@@ -97,8 +97,17 @@ git:
 remote:
 	$(RUN_DOCK) "remotestate"
 
+plan:
+	$(RUN_DOCK) "terraform init && terraform plan"
+
 deploy:
-	$(RUN_DOCK) "terraform init && terraform plan && terraform apply -auto-approve"
+	$(RUN_DOCK) "terraform init \
+				&& terraform plan \
+				&& terraform apply -auto-approve \
+				&& terraform output -json >./outputs.json"
+
+output:		
+	$(RUN_DOCK) "terraform output -json"
 
 destroy:
 	$(RUN_DOCK) "terraform destroy -auto-approve"
