@@ -104,10 +104,7 @@ deploy:
 	$(RUN_DOCK) "terraform init \
 				&& terraform plan \
 				&& terraform apply -auto-approve \
-				&& terraform output -json >./outputs.json"
-
-output:		
-	$(RUN_DOCK) "terraform output -json"
+				&& terraform output"
 
 destroy:
 	$(RUN_DOCK) "terraform destroy -auto-approve"
