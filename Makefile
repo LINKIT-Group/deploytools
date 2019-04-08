@@ -48,7 +48,7 @@ export HOST_UID
 
 
 # all our targets are phony (no files to check).
-.PHONY: shell help test build rebuild git remote plan deploy destroy clean
+.PHONY: shell help test build rebuild git remote plan infra destroy clean
 
 # suppress makes own output
 #.SILENT:
@@ -101,7 +101,7 @@ remote:
 plan:
 	$(RUN_DOCK) "terraform init && terraform plan"
 
-deploy:
+infra:
 	$(RUN_DOCK) "terraform init \
 				&& terraform plan \
 				&& terraform apply -auto-approve \
