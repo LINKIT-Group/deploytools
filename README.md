@@ -34,6 +34,11 @@ Note: at first run a Docker image will be build, this can take a few minutes. Su
 ```
 make git url=${GIT_REPO}
 ```
+### Deploy infrastructure
+```
+make infra
+```
+
 
 ### Create remotestate (on AWS) and Terraform backend file
 Create a remote state backend on AWS (two DynamoDB tables, and an S3 bucket) for the pulled ${GIT_REPO} from previous section. One set of DynamoDB/S3 is created per GIT_HOST/GROUP combination (example "https://github.com/LINKIT-Group"), multiple repositories in a group share a DynamoDB/S3 set.
