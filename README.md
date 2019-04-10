@@ -9,6 +9,7 @@
 
 ## WYSIWYG  
 ![MakeGit](https://github.com/LINKIT-Group/deployscript/raw/master/files/makegit-20190410.png)
+
 ![MakeInfra](https://github.com/LINKIT-Group/deployscript/raw/master/files/makeinfra-20190410.png)
 
 
