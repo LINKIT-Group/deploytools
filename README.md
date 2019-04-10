@@ -7,8 +7,9 @@
 5. an AWS account to create a DynamoDB-S3 pair (remote state backend).
 
 
-## WYSIWYG
-![Workflow](https://github.com/LINKIT-Group/deployscript/raw/master/abstract/workflow.png)
+## WYSIWYG  
+![MakeGit](https://github.com/LINKIT-Group/deployscript/raw/master/files/makegit-20190410.png)
+![MakeInfra](https://github.com/LINKIT-Group/deployscript/raw/master/files/makeinfra-20190410.png)
 
 
 ## Prepare
