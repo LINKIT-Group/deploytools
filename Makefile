@@ -95,23 +95,24 @@ build:
 git:
 	$(RUN_DOCK) "GIT_URL=\"$(URL)\" makegit"
 
+infra:
+	$(RUN_DOCK) "remotestate"
+	$(RUN_DOCK) "terraform init \
+				&& terraform plan \
+				&& terraform apply -auto-approve \
+				&& terraform output"
+
 remote:
 	$(RUN_DOCK) "remotestate"
 
 plan:
 	$(RUN_DOCK) "terraform init && terraform plan"
 
-infra:
-	$(RUN_DOCK) "terraform init \
-				&& terraform plan \
-				&& terraform apply -auto-approve \
-				&& terraform output"
-
 destroy:
 	$(RUN_DOCK) "terraform destroy -auto-approve"
 
 clean_build:
-	rm -rf build/*
+	@rm -rf build/*
 
 clean: clean_build
 

@@ -8,7 +8,6 @@ RUN apk update \
     && apk add --no-cache \
         bash \
         python3 \
-        #terraform \
         openssh \
         ca-certificates \
         groff \
