@@ -2,8 +2,6 @@ FROM alpine as base
 
 ARG TERRAFORM_VERSION=0.11.13
 
-#https://checkpoint-api.hashicorp.com/v1/check/terraform
-
 RUN apk update \
     && apk add --no-cache \
         bash \
