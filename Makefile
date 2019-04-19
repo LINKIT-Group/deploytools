@@ -109,6 +109,7 @@ plan:
 	$(RUN_DOCK) "terraform init && terraform plan"
 
 destroy:
+	$(RUN_DOCK) "remotestate"
 	$(RUN_DOCK) "terraform destroy -auto-approve"
 
 clean_build:
