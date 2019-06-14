@@ -38,9 +38,6 @@ URL ?= $(url)
 # cli prefix for commands to run in container
 RUN_DOCK = docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) sh -l -c
 
-# terraform variables
-#WORKSPACE ?= $(strip $(if $(workspace),$(workspace),dev))
-
 # export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
 export HOST_USER
@@ -48,49 +45,16 @@ export HOST_UID
 
 
 # all our targets are phony (no files to check).
-.PHONY: shell help test build rebuild git remote plan infra destroy clean
+.PHONY: shell git infra remote plan destroy clean_build clean
 
-# suppress makes own output
-#.SILENT:
-
-# shell is the first target. So instead of: make shell cmd="whoami", we can type: make cmd="whoami".
-# more examples: make shell cmd="whoami && env", make shell cmd="echo hello container space".
-# leave the double quotes to prevent commands overflowing in makefile (things like && would break)
-# special chars: '',"",|,&&,||,*,^,[], should all work. Except "$" and "`", if someone knows how, please let me know!).
-# escaping (\) does work on most chars, except double quotes (if someone knows how, please let me know)
-# i.e. works on most cases. For everything else perhaps more useful to upload a script and execute that.
 shell:
 ifeq ($(CMD_ARGUMENTS),)
 	# no command is given, default to shell
-	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) sh -l
+	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) bash -l
 else
 	# run the command
-	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) sh -l -c "$(CMD_ARGUMENTS)"
+	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) bash -l -c "$(CMD_ARGUMENTS)"
 endif
-
-# Regular Makefile part for buildpypi itself
-help:
-	@echo ''
-	@echo 'Usage: make [TARGET] [EXTRA_ARGUMENTS]'
-	@echo 'Targets:'
-	@echo '  build    	build docker --image-- for current user: $(HOST_USER)(uid=$(HOST_UID))'
-	@echo '  rebuild  	rebuild docker --image-- for current user: $(HOST_USER)(uid=$(HOST_UID))'
-	@echo '  test     	test docker --container-- for current user: $(HOST_USER)(uid=$(HOST_UID))'
-	@echo '  clean    	remove docker --image-- for current user: $(HOST_USER)(uid=$(HOST_UID))'
-	@echo '  shell      run docker --container-- for current user: $(HOST_USER)(uid=$(HOST_UID))'
-	@echo ''
-	@echo 'Extra arguments:'
-	@echo 'cmd=:	make cmd="whoami"'
-	@echo '# user= and uid= allows to override current user. Might require additional privileges.'
-	@echo 'user=:	make shell user=root (no need to set uid=0)'
-	@echo 'uid=:	make shell user=dummy uid=4000 (defaults to 0 if user= set)'
-
-rebuild:
-	# force a rebuild by passing --no-cache
-	docker-compose build --no-cache $(SERVICE_TARGET)
-
-build:
-	docker-compose build $(SERVICE_TARGET)
 
 git:
 	$(RUN_DOCK) "GIT_URL=\"$(URL)\" makegit"
@@ -116,9 +80,3 @@ clean_build:
 	@rm -rf build/*
 
 clean: clean_build
-
-test:
-	# here it is useful to add your own customised tests
-	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) sh -c '\
-		echo "I am `whoami`. My uid is `id -u`." && echo "Docker runs!"' \
-	&& echo success
