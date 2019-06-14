@@ -1,6 +1,6 @@
 FROM alpine as base
 
-ARG TERRAFORM_VERSION=0.11.13
+ARG TERRAFORM_VERSION=0.12.2
 
 RUN apk update \
     && apk add --no-cache \
