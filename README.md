@@ -8,15 +8,16 @@
 
 
 ## WYSIWYG  
-![MakeGit](https://github.com/LINKIT-Group/deployscript/raw/master/files/makegit-20190410.png)
+![MakeGit](https://github.com/LINKIT-Group/deploytools/raw/master/files/makegit-20190410.png)
 
-![MakeInfra](https://github.com/LINKIT-Group/deployscript/raw/master/files/makeinfra-20190410.png)
+![MakeInfra](https://github.com/LINKIT-Group/deploytools/raw/master/files/makeinfra-20190410.png)
 
 
 ## Prepare
 ### clone this project
 ```
-git clone https://github.com/LINKIT-Group/deployscript.git
+git clone https://github.com/LINKIT-Group/deploytools.git
+cd deploytools
 ```
 
 ### setup credentials for AWS
@@ -30,18 +31,17 @@ aws_secret_access_key = ${YOUR_SECRET_ACCESS_KEY}
 
 ## Usage
 Note: at first run a Docker image will be build, this can take a few minutes. Subsequent runs are much faster.
-### Pull-merge a GIT repository into ./build/buildrepo
+### Pull-merge a new project repository into ./build/buildrepo
 ```
-make git url=${GIT_REPO}
+make git url=https://github.com/LINKIT-Group/aws-cicd-demo.git
 ```
 ### Deploy infrastructure
 ```
 make infra
 ```
 
-
 ### Create remotestate (on AWS) and Terraform backend file
-Create a remote state backend on AWS (two DynamoDB tables, and an S3 bucket) for the pulled ${GIT_REPO} from previous section. One set of DynamoDB/S3 is created per GIT_HOST/GROUP combination (example "https://github.com/LINKIT-Group"), multiple repositories in a group share a DynamoDB/S3 set.
+Create a remote state backend on AWS (two DynamoDB tables, and an S3 bucket) for the pulled ${GIT_REPO} from previous section. One set of DynamoDB/S3 is created per GIT_HOST/GROUP combination (example: "https://github.com/LINKIT-Group"), multiple repositories in a group share a DynamoDB/S3 set.
 
 ```
 # create a remote state backend for git-repo in ./build/buildrepo
@@ -50,8 +50,7 @@ make remotestate
 
 ### Cleanup
 ```
-# WARNING: this function will be changed soon, with additions to prevent un-commited work getting lost.
-# clear ./build directory (wip: removal of container image)
+# clear ./build directory
 make clean
 ```
 
@@ -60,6 +59,6 @@ make clean
 Makefile configuration is based upon [this article](https://itnext.io/docker-makefile-x-ops-sharing-infra-as-code-parts-ea6fa0d22946)
 
 ### Python modules: makegit and remotestate
-These two modules are installed automatically in the docker container, see Dockerfile.
+These two modules are installed automatically through Docker (see Dockerfile).
 - makegit, to merge multiple GIT repos into a buildrepo. Source: https://github.com/LINKIT-Group/makegit
 - remotestate, to create a remote state backend. Source: https://github.com/LINKIT-Group/remotestate
